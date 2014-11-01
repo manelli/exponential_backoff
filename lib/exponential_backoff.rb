@@ -13,11 +13,10 @@ module ExponentialBackoff
     raise RequestNotSucceded
   end
 
-  private
-
   def self.wait(iteration)
     seconds = rand(1..1000) * 0.001
     waiting_time = (2**iteration + seconds).ceil
     sleep(waiting_time)
   end
+  private_class_method :wait
 end
