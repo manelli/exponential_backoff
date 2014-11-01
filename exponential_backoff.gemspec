@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.description   = 'Simple Exponential Backoff in Ruby'
   s.author        = 'Martin Manelli'
   s.email         = 'manelli.ml@gmail.com'
-  s.homepage      = 'http://github.com/manelli/hippie'
+  s.homepage      = 'http://github.com/manelli/exponential_backoff'
   s.license       = 'MIT'
   s.require_paths = ['lib']
 
