@@ -4,8 +4,8 @@ module ExponentialBackoff
   def self.try(max_tries, &block)
     1.upto max_tries do |n|
       begin
-        return res = block.call
-      rescue => error
+        return block.call
+      rescue
         wait(n)
         next
       end
