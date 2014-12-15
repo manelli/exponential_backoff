@@ -1,16 +1,16 @@
 module ExponentialBackoff
-  RequestNotSucceded = Class.new(StandardError)
-
   def self.try(max_tries, &block)
+    errors = []
     1.upto max_tries do |n|
       begin
         return block.call
-      rescue
+      rescue => err
+        errors << err
         wait(n)
         next
       end
     end
-    raise RequestNotSucceded
+    raise FailedRequest.new(errors)
   end
 
   def self.wait(iteration)
@@ -19,4 +19,12 @@ module ExponentialBackoff
     sleep(waiting_time)
   end
   private_class_method :wait
+
+  class FailedRequest < StandardError
+    attr_reader :errors
+
+    def initialize(errors)
+      @errors = errors
+    end
+  end
 end
