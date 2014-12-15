@@ -1,16 +1,23 @@
-# Simple Exponential Backoff in Ruby
+# Exponential Backoff
+### _Simple Exponential Backoff in Ruby_
+---
+
+## Installation
+
+    $ gem install exponential_backoff
 
 ## Usage
 
 ```ruby
 require 'exponential_backoff'
 
-request = -> (url) { res = Hippie.get(url); fail if res.error?; res }
-
-ExponentialBackoff.try(3) { request.call('http://example.org') }
+ExponentialBackoff.try(3) do
+  res = Hippie.get(url)
+  fail if res.error?
+end
 ```
 
-### API
+## API
 ```ruby
-ExponentialBackoff#try(max_number_of_tries) { request }
+ExponentialBackoff.try(max_number_of_tries) { request }
 ```
