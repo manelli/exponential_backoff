@@ -12,8 +12,16 @@
 require 'exponential_backoff'
 
 ExponentialBackoff.try(3) do
-  res = Hippie.get(url)
+  res = HTTP.get(url)
   fail if res.error?
+end
+
+# or
+
+begin
+  ExponentialBackoff.try(2) { HTTP.get('www.google.com') }
+rescue => e
+  e.errors # => [#<RuntimeError: Blah>, #<ConnectionError: Bleh>]
 end
 ```
 
